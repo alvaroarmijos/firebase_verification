@@ -1,15 +1,27 @@
+import 'package:firebase_verification/app/navigator/app_navigator.dart';
+import 'package:firebase_verification/app/ui/ui.dart';
+import 'package:firebase_verification/home/view/home_page.dart';
+import 'package:firebase_verification/verification/view/verification_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
+/// {@template MyApp}
+/// Contains the Material App
+/// {@endtemplate}
 class MyApp extends StatelessWidget {
+  /// {@macro MyApp}
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.lightTheme,
       title: 'Firebase Verification',
-      home: Scaffold(body: const Center(child: Text('Firebase Verification'))),
+      routes: {
+        AppNavigator.MAIN_ROUTE: (_) => const HomePage(),
+        AppNavigator.VERIFICATION: (_) => const VerificationPage(),
+      },
     );
   }
 }
