@@ -1,9 +1,11 @@
-import 'package:firebase_verification/app/common/validators.dart';
 import 'package:firebase_verification/app/ui/app_spacing.dart';
+import 'package:firebase_verification/verification/cubit/verification_cubit.dart';
+import 'package:firebase_verification/verification/widget/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template VerificationPage}
-/// Contains the button to start verification.
+/// Contains the verification process.
 /// {@endtemplate}
 class VerificationPage extends StatelessWidget {
   /// {@macro VerificationPage}
@@ -11,36 +13,25 @@ class VerificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-
     return Scaffold(
       appBar: AppBar(title: const Text('Email verification')),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.space12),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: AppSpacing.space12,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'Email'),
-                validator: EmailValidator.validate,
-                textInputAction: TextInputAction.next,
+        child: BlocBuilder<VerificationCubit, VerificationState>(
+          builder: (context, state) {
+            return switch (state) {
+              VerificationInitialState() => const VerificationInitialView(),
+              VerificationCheckingState() => const VerificationCheckingView(),
+              VerificationCheckedState() => const Center(
+                child: CircularProgressIndicator(),
               ),
-              ElevatedButton(
-                onPressed: () => _onSendVerificationCode(formKey),
-                child: const Text('Enviar código de verificación'),
+              VerificationErrorState(:final message) => VerificationErrorView(
+                message: message,
               ),
-            ],
-          ),
+            };
+          },
         ),
       ),
     );
-  }
-
-  void _onSendVerificationCode(GlobalKey<FormState> formKey) {
-    final isValid = formKey.currentState?.validate() ?? false;
-    if (isValid) {}
   }
 }
