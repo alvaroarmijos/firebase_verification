@@ -1,12 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_verification/app/navigator/app_navigator.dart';
 import 'package:firebase_verification/app/ui/ui.dart';
+import 'package:firebase_verification/firebase_options.dart';
 import 'package:firebase_verification/home/view/home_page.dart';
 import 'package:firebase_verification/verification/cubit/verification_cubit.dart';
 import 'package:firebase_verification/verification/view/verification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(const MyApp());
+}
 
 /// {@template MyApp}
 /// Contains the Material App
