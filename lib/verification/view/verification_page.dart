@@ -22,8 +22,8 @@ class VerificationPage extends StatelessWidget {
             return switch (state) {
               VerificationInitialState() => const VerificationInitialView(),
               VerificationCheckingState() => const VerificationCheckingView(),
-              VerificationCheckedState() => const Center(
-                child: CircularProgressIndicator(),
+              VerificationCheckedState(:final email) => VerificationCheckedView(
+                email: email,
               ),
               VerificationErrorState(:final message) => VerificationErrorView(
                 message: message,

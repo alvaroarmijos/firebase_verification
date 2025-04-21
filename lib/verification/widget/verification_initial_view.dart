@@ -28,9 +28,20 @@ class VerificationInitialView extends StatelessWidget {
             textInputAction: TextInputAction.next,
             onChanged: verificationCubit.onEmailChange,
           ),
-          ElevatedButton(
-            onPressed: () => _onSendVerificationCode(context, formKey),
-            child: const Text('Enviar código de verificación'),
+          BlocSelector<VerificationCubit, VerificationState, bool>(
+            selector:
+                (state) => state is VerificationInitialState && state.loading,
+            builder: (context, loading) {
+              if (loading) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
+              return ElevatedButton(
+                onPressed: () => _onSendVerificationCode(context, formKey),
+                child: const Text('Send verification code'),
+              );
+            },
           ),
         ],
       ),

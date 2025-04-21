@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () => AppNavigator.navigateToVerification(context),
-          child: const Text('Comenzar'),
+          child: const Text('Start'),
         ),
       ),
     );

@@ -24,25 +24,26 @@ class VerificationCheckingView extends StatelessWidget {
         children: [
           TextFormField(
             decoration: const InputDecoration(
-              hintText: 'Introduce el código de verificación',
+              hintText: 'Enter the verification code',
             ),
-            validator: EmailValidator.validate,
+            validator: CodeValidator.validate,
             textInputAction: TextInputAction.next,
-            onChanged: verificationCubit.onEmailChange,
+            onChanged: verificationCubit.onCodeChange,
+            keyboardType: TextInputType.number,
           ),
           ElevatedButton(
-            onPressed: () => _onSendVerificationCode(context, formKey),
-            child: const Text('Verificar email'),
+            onPressed: () => _onVerifyEmail(context, formKey),
+            child: const Text('Verify email'),
           ),
         ],
       ),
     );
   }
 
-  void _onSendVerificationCode(
-    BuildContext context,
-    GlobalKey<FormState> formKey,
-  ) {
+  void _onVerifyEmail(BuildContext context, GlobalKey<FormState> formKey) {
     final isValid = formKey.currentState?.validate() ?? false;
+    if (isValid) {
+      context.read<VerificationCubit>().verifyEmail();
+    }
   }
 }
