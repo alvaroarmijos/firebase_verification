@@ -46,10 +46,11 @@ $VerificationStateCopyWith(VerificationState _, $Res Function(VerificationState)
 
 
 class VerificationInitialState implements VerificationState {
-  const VerificationInitialState({this.email});
+  const VerificationInitialState({this.email, this.loading = false});
   
 
  final  String? email;
+@JsonKey() final  bool loading;
 
 /// Create a copy of VerificationState
 /// with the given fields replaced by the non-null parameter values.
@@ -61,16 +62,16 @@ $VerificationInitialStateCopyWith<VerificationInitialState> get copyWith => _$Ve
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerificationInitialState&&(identical(other.email, email) || other.email == email));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerificationInitialState&&(identical(other.email, email) || other.email == email)&&(identical(other.loading, loading) || other.loading == loading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email);
+int get hashCode => Object.hash(runtimeType,email,loading);
 
 @override
 String toString() {
-  return 'VerificationState.initial(email: $email)';
+  return 'VerificationState.initial(email: $email, loading: $loading)';
 }
 
 
@@ -81,7 +82,7 @@ abstract mixin class $VerificationInitialStateCopyWith<$Res> implements $Verific
   factory $VerificationInitialStateCopyWith(VerificationInitialState value, $Res Function(VerificationInitialState) _then) = _$VerificationInitialStateCopyWithImpl;
 @useResult
 $Res call({
- String? email
+ String? email, bool loading
 });
 
 
@@ -98,10 +99,11 @@ class _$VerificationInitialStateCopyWithImpl<$Res>
 
 /// Create a copy of VerificationState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? email = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? email = freezed,Object? loading = null,}) {
   return _then(VerificationInitialState(
 email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

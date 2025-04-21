@@ -4,8 +4,10 @@ part of 'verification_cubit.dart';
 /// Verification state class.
 sealed class VerificationState with _$VerificationState {
   /// Verification Page Loading state.
-  const factory VerificationState.initial({String? email}) =
-      VerificationInitialState;
+  const factory VerificationState.initial({
+    String? email,
+    @Default(false) bool loading,
+  }) = VerificationInitialState;
 
   /// Posts Page checking state.
   const factory VerificationState.checking({

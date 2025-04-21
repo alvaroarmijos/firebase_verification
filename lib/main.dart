@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_verification/app/di/di.dart';
 import 'package:firebase_verification/app/navigator/app_navigator.dart';
 import 'package:firebase_verification/app/ui/ui.dart';
 import 'package:firebase_verification/firebase_options.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  registerGlobalDeps();
 
   runApp(const MyApp());
 }
